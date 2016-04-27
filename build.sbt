@@ -8,6 +8,7 @@ parallelExecution in ThisBuild := false
 lazy val versions = new {
   val finagle = "6.31.0"
   val scroogeVersion = "4.2.0"
+  val finatra = "2.1.2"
 }
 
 resolvers ++= Seq(
@@ -25,7 +26,11 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.0.13",
   "com.twitter" %% "finagle-core" %  versions.finagle,
   "com.twitter" %% "finagle-http" %  versions.finagle,
-  "com.twitter" %% "finagle-serversets" %   versions.finagle
+  "com.twitter" %% "finagle-zipkin" % versions.finagle,
+  "com.twitter" %% "finagle-serversets" %   versions.finagle excludeAll(
+    ExclusionRule(organization = "org.slf4j")
+    ),
+  "com.twitter" %% "twitter-server" %  "1.16.0"
 )
 
 libraryDependencies ++= scroogeLibs
